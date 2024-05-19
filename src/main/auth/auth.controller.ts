@@ -22,15 +22,9 @@ export class AuthController {
     return this.authService.loginWithEmail(body);
   }
 
-  @Put('update')
+  @Put('update')  
   @UseGuards(JwtAuthGuard) 
   async update(@Body() body: updateProfileDto, @Req() req: any): Promise<Object> {
     return this.authService.updateProfile(body, req);
-  }
-
-
-  @Post('register/google')
-  async registerWithGoogle(@Body() body: string): Promise<Object> {
-    return this.authService.loginWithGoogle(body);
   }
 }

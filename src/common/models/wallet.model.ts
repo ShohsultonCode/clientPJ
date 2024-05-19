@@ -3,7 +3,8 @@
 import * as mongoose from 'mongoose';
 
 
-export const WalletSchema = new mongoose.Schema({
-  wallet_balance: { type: String, required: true },
-  wallet_user_id: { type: String, required: true, unique: true },
+export const walletSchema = new mongoose.Schema({
+  wallet_amount: { type: String, required: true, unique:true },
+  wallet_user_id: {  type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true},
+  wallet_isactive:{type:Boolean, default:true},
 });

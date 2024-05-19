@@ -20,12 +20,12 @@ export class AdminController {
   }
  
 
-  @ApiProperty({})
-  @Get("categories")
-  @UseGuards(AdminGuard)
-  async findAll():Promise<Object> {   
-    return await this.adminCategoryService.findAllCategories();
-  }
+  // @ApiProperty({})
+  // @Get("categories")
+  // @UseGuards(AdminGuard)
+  // async findAll():Promise<Object> {   
+  //   return await this.adminCategoryService.findAllCategories();
+  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

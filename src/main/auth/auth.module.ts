@@ -10,7 +10,6 @@ import { AdminGuard } from 'src/common/guards/checkrole.guard';
 import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 
 
-///Module is creating 
 @Module({
   imports: [
     MongooseModule.forFeature([
