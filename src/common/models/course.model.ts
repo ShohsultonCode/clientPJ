@@ -8,7 +8,7 @@ export const courseSchema = new mongoose.Schema({
   course_description: { type: String, required: true},
   course_category: { type: mongoose.Schema.Types.ObjectId, ref: 'Categories', required: true },
   course_image: { type: String, required: true},
-  course_banner: { type: String, required: true},
+  course_banner: { type: String, required: true},  
   course_price: { type: String, required: true},
   course_isactive:{type:Boolean, default:true},
 });

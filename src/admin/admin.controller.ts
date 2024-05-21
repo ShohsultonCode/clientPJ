@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
-import { AdminService } from './admin.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AdminCategoryService } from './admin.category.service';
+import { AdminService } from './admin.service';
+import { CreateCategoryDto } from './dto/category/category.create.dto';
 import { AdminGuard } from 'src/common/guards/checkrole.guard';
-import { JwtAuthGuard } from 'src/common/guards/auth.guard';
-import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { fileUploadInterceptor } from 'src/common/utils/file.catch';
+import UploadedFileInter from 'src/common/entity/user.entity';
+import { AuthGuard } from '@nestjs/passport';
 
 
-@ApiTags('admin')
+@ApiTags('admin-side')
 @Controller('admin-side')
 export class AdminController {
   constructor(
@@ -14,9 +17,15 @@ export class AdminController {
    private readonly adminCategoryService: AdminCategoryService
    ) {}
 
-  @Post()
-  create(@Body() createAdminDto: any) {
-    return this.adminService.create(createAdminDto);
+
+
+
+  @Post("create/category")
+  // @UseGuards(AuthGuard)
+  @UseGuards(AdminGuard)
+  @UseInterceptors(fileUploadInterceptor('category_image'))
+  async createCategory(@Body() body: CreateCategoryDto,  @Req() req: any,  @UploadedFile() file: UploadedFileInter):Promise<Object> {
+    return this.adminCategoryService.createCategory(req, body, file);
   }
  
 

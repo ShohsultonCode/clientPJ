@@ -9,7 +9,6 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get('PORT') ?? 7002;
 
-  // Global filters and pipes
   // app.useGlobalFilters(new MyExceptionFilter());
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
@@ -18,12 +17,12 @@ async function bootstrap() {
 
   // Swagger setup
   const options = new DocumentBuilder()
-    .setTitle('Pizza API')
-    .setDescription('Pizza API Description')
+    .setTitle('Course Client API')
+    .setDescription('Course Client Description')
     .setVersion('1.0')
     .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup('api-docs-pizza-locks', app, document);
+    SwaggerModule.setup('api-docs-course-client', app, document);
 
   // Logger setup
     const logger = new Logger();

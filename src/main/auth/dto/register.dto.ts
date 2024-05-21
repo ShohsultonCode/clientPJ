@@ -9,8 +9,17 @@ export class registerDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(3)
-  @MaxLength(10)
-  user_name: string;
+  @MaxLength(25)
+  user_firstname: string;
+
+  @ApiProperty({
+    example:"John Doe"
+  })  
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(3)
+  @MaxLength(25)
+  user_lastname: string;
 
   @IsEmail() // Ensures the field contains a valid email address
   @ApiProperty({

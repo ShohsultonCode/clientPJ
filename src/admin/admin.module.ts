@@ -12,17 +12,17 @@ import { AdminService } from './admin.service';
  imports:[
   MongooseModule.forFeature(Schemas),
   JwtModule.registerAsync({
-    imports: [ConfigModule], // Import ConfigModule for using ConfigService
+    imports: [ConfigModule],  
     useFactory: (configService: ConfigService) => ({
-      secret: configService.get<string>('JWT_SECRET'), // Retrieve JWT secret from configuration
+      secret: configService.get<string>('JWT_SECRET'), 
       signOptions: {
-        expiresIn: configService.get<string>('JWT_EXPIRATION'), // Retrieve expiration from configuration
+        expiresIn: configService.get<string>('JWT_EXPIRATION'), 
       },
     }),
     inject: [ConfigService],  
   }),
  ],
  controllers: [AdminController],
- providers: [AdminService, AdminCategoryService, AdminGuard], // Don't forget to include your guard in the providers array
+ providers: [AdminService, AdminCategoryService, AdminGuard], 
 })
 export class AdminModule {}

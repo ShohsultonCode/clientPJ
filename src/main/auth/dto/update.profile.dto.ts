@@ -8,9 +8,18 @@ export class updateProfileDto {
   })  
   @IsString()
   @MinLength(3)
-  @MaxLength(10)
+  @MaxLength(25)
   @IsOptional()
-  user_name: string;
+  user_firstname: string;
+
+  @ApiProperty({
+    example:"John Doe"
+  })  
+  @IsString()
+  @MinLength(3)
+  @MaxLength(25)
+  @IsOptional()
+  user_lastname: string;
 
   @IsEmail() 
   @IsOptional()

@@ -36,10 +36,10 @@ export class AuthService {
       );
 
       const newUser = {
-        user_name: registerData.user_name.trim(),
+        user_firstname: registerData.user_firstname.trim(),
+        user_lastname: registerData.user_lastname.trim(),
         user_email: registerData.user_email.trim(),
         user_password: hashedPassword,
-
       };
 
       const result = await this.Users.create(newUser);
@@ -93,34 +93,35 @@ export class AuthService {
 
   async updateProfile(body: updateProfileDto, req: any): Promise<Object> {
     try {
-      const { id } = req.user
-      const { user_name, user_password, user_email } = body
+      const { id } = req.user;
+      const { user_firstname, user_lastname, user_password, user_email } = body;
+      
       const user = await this.Users.findById(id);
-
       if (!user) {
         throw new NotFoundException('User not found');
       }
-      const hashedPassword = await bcrypt.hash(
-        user_password.trim(),
-        10,
-      );
-
+  
       const updateTemplate = {
-        user_name: user_name,
-        user_email: user_email,
-        user_password: hashedPassword
+        ...(user_firstname && { user_firstname }),
+        ...(user_lastname && { user_lastname }),
+        ...(user_email && { user_email }),
+        ...(user_password && { user_password: await bcrypt.hash(user_password.trim(), 10) })
+      };
+  
+      const updatedUser = await this.Users.findByIdAndUpdate(id, updateTemplate, { new: true });
+  
+      if (!updatedUser) {
+        throw new NotFoundException('Failed to update user');
       }
-
-      const updatedUser = await this.Users.findByIdAndUpdate(id, updateTemplate)
-      await updatedUser.save()
-
+  
       return {
-        message: 'Update successful !',
+        message: 'Update successful!',
         statusCode: 200,
-        role: user.user_role,
+        role: updatedUser.user_role,
       };
     } catch (error) {
       throw new BadRequestException(error.message);
     }
   }
+  
 }

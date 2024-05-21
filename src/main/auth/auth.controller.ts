@@ -16,7 +16,6 @@ export class AuthController {
     return this.authService.registerWithEmail(body);
   }
 
-
   @Post('login')
   async login(@Body() body: loginWithEmailDto): Promise<Object> {
     return this.authService.loginWithEmail(body);
