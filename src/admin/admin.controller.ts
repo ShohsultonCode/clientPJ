@@ -37,7 +37,7 @@ export class AdminController {
   // }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+ async findOne(@Param('id') id: string):Promise<any> {
     return this.adminService.findOne(+id);
   }
 
