@@ -8,6 +8,8 @@ import { AdminCategoryService } from './admin.category.service';
 import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
 
+
+//admin module is changed
 @Module({
  imports:[
   MongooseModule.forFeature(Schemas),
