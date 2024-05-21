@@ -18,7 +18,7 @@ export class AdminService {
     return `This action updates a #${id} admin`;
   }
 
-  remove(id: number) {
+   async remove(id: number):Promise<any> {
     return `This action removes a #${id} admin`;
   }
 }
