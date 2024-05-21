@@ -25,7 +25,7 @@ async function bootstrap() {
     SwaggerModule.setup('api-docs-course-client', app, document);
 
   // Logger setup
-    const logger = new Logger();
+    const logger = new Logger();//ss
     app.useLogger(logger);
 
   await app.listen(port);
