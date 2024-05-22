@@ -5,7 +5,10 @@ import { fileUploadInterceptor } from 'src/common/utils/file.catch';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/category.create.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('categories')
 @Controller('categories')
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) { }
