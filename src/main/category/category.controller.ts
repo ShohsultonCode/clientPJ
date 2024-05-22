@@ -26,6 +26,7 @@ export class CategoryController {
   @UseGuards(AdminGuard)
   async findAll(): Promise<Object> {
     return await this.categoryService.findAllCategories();
+    // all categories
   }
 
   @Get(':id')
