@@ -1,5 +1,3 @@
-// src/users/schemas/user.schema.ts
-
 import * as mongoose from 'mongoose';
 
 

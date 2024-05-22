@@ -19,6 +19,6 @@ export class loginWithEmailDto {
   })  
   @IsNotEmpty()
   @MinLength(4)
-  @MaxLength(20)
+  @MaxLength(50)
   user_password: string;
 }

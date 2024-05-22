@@ -37,6 +37,6 @@ export class updateProfileDto {
     example:"123326125"
   })  
   @MinLength(4)
-  @MaxLength(20)
+  @MaxLength(50)
   user_password: string;
 }

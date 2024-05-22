@@ -4,9 +4,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AdminGuard } from 'src/common/guards/checkrole.guard';
 import { Schemas } from 'src/config/constant';
-import { AdminCategoryService } from './admin.category.service';
 import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
+import { UtilsService } from './utilies.service';
 
 
 //admin module is changed
@@ -25,6 +25,6 @@ import { AdminService } from './admin.service';
   }),
  ],
  controllers: [AdminController],
- providers: [AdminService, AdminCategoryService, AdminGuard], 
+ providers: [AdminService, UtilsService, AdminGuard], 
 })
 export class AdminModule {}
