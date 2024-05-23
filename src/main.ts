@@ -10,7 +10,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get('PORT') ?? 7002;
 
-  app.useGlobalFilters(new AllExceptionsFilter());
+  // app.useGlobalFilters(new AllExceptionsFilter());
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.setGlobalPrefix('api');   

@@ -3,10 +3,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { UtilsService } from 'src/admin/utilies.service';
 import UploadedFileInter, { Category } from 'src/common/entity/user.entity';
-import { CreateCategoryDto } from './dto/category.create.dto';
-import { UpdateCategoryDto } from './dto/update-category.dto';
 import { checkId } from 'src/utils/check.id';
 import { ImageService } from '../image/image.service';
+import { CreateCategoryDto } from './dto/category.create.dto';
+CreateCategoryDto
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 
 @Injectable()
@@ -72,8 +73,8 @@ export class CategoryService {
         await findCategory.save()
     }
     const categoryTemplate = {
-        category_name: category_name.trim(),
-        category_description: category_description.trim(),
+        category_name: category_name ? category_name.trim(): category_name,
+        category_description: category_description ? category_description.trim(): category_description,
         category_isactive: category_isactive,
     }
 

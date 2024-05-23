@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config'; // Import ConfigModule and ConfigService
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AdminGuard } from 'src/common/guards/checkrole.guard';
@@ -9,7 +9,6 @@ import { AdminService } from './admin.service';
 import { UtilsService } from './utilies.service';
 
 
-//admin module is changed
 @Module({
  imports:[
   MongooseModule.forFeature(Schemas),

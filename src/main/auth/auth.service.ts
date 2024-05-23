@@ -5,10 +5,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { OAuth2Client } from 'google-auth-library';
 import { Model } from 'mongoose';
-import { User } from 'src/common/entity/user.entity';
+import UploadedFileInter, { User } from 'src/common/entity/user.entity';
 import { loginWithEmailDto } from './dto/loginwithEmaildto';
 import { registerDto } from './dto/register.dto';
 import { updateProfileDto } from './dto/update.profile.dto';
+import { ImageService } from '../image/image.service';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +19,7 @@ export class AuthService {
     @InjectModel('Users') private readonly Users: Model<User>, 
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly imageService: ImageService,
   ) {}
 
   async registerWithEmail(registerData: registerDto): Promise<Object> {
@@ -91,7 +93,7 @@ export class AuthService {
 
   }
 
-  async updateProfile(body: updateProfileDto, req: any): Promise<Object> {
+  async updateProfile(body: updateProfileDto, req: any, file:UploadedFileInter): Promise<Object> {
     try {
       const { id } = req.user;
       const { user_firstname, user_lastname, user_password, user_email } = body;
@@ -101,6 +103,13 @@ export class AuthService {
         throw new NotFoundException('User not found');
       }
   
+      if (file && file.filename) {
+        const imageNameToDelete = user.user_image;
+        const deleteImage = await this.imageService.deleteImage(imageNameToDelete)
+        user.user_image = file.filename
+        await user.save()
+    }
+
       const updateTemplate = {
         ...(user_firstname && { user_firstname }),
         ...(user_lastname && { user_lastname }),

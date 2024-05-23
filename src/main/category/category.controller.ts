@@ -1,11 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import UploadedFileInter from 'src/common/entity/user.entity';
 import { AdminGuard } from 'src/common/guards/checkrole.guard';
 import { fileUploadInterceptor } from 'src/common/utils/file.catch';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/category.create.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { ApiTags } from '@nestjs/swagger';
 
 
 @ApiTags('categories')
@@ -23,22 +23,19 @@ export class CategoryController {
 
 
   @Get("all")
-  @UseGuards(AdminGuard)
   async findAll(): Promise<Object> {
     return await this.categoryService.findAllCategories();
-    // all categories
   }
 
   @Get(':id')
-  @UseGuards(AdminGuard)
   async findOne(@Param('id') id: string): Promise<Object> {
     return this.categoryService.findOne(id);
   }
 
-  @Put(':id')
+  @Put('')
   @UseGuards(AdminGuard)
   @UseInterceptors(fileUploadInterceptor('category_image'))
-  update(@Param('id') id: string, @Body() body: UpdateCategoryDto, @Req() req: any, @UploadedFile() file: UploadedFileInter) {
+  update(@Body() body: UpdateCategoryDto, @Req() req: any, @UploadedFile() file: UploadedFileInter) {
     return this.categoryService.update(body, req, file);
   }
 

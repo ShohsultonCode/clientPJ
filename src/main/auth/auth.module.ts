@@ -7,6 +7,7 @@ import { JwtAuthGuard } from 'src/common/guards/auth.guard';
 import { AdminGuard } from 'src/common/guards/checkrole.guard';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { ImageService } from '../image/image.service';
 
 
 @Module({
@@ -29,6 +30,6 @@ import { AuthService } from './auth.service';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, AdminGuard, JwtAuthGuard],
+  providers: [AuthService, AdminGuard, JwtAuthGuard, ImageService],
 })
 export class AuthModule {}

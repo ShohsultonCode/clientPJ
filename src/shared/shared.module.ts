@@ -5,6 +5,7 @@ import { AdminModule } from 'src/admin/admin.module';
 import { DatabaseModule } from 'src/database/database.module';
 import { AuthModule } from 'src/main/auth/auth.module';
 import { CategoryModule } from 'src/main/category/category.module';
+import { CourcesModule } from 'src/main/cources/cources.module';
 import { ImageModule } from 'src/main/image/image.module';
 import { UsersModule } from 'src/main/users/users.module';
 
@@ -21,7 +22,8 @@ import { UsersModule } from 'src/main/users/users.module';
     UsersModule,
     AuthModule,
     ImageModule,
-    CategoryModule
+    CategoryModule,
+    CourcesModule
   ],
   providers: [],
   controllers: []
