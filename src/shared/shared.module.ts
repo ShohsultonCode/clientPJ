@@ -7,6 +7,7 @@ import { AuthModule } from 'src/main/auth/auth.module';
 import { CategoryModule } from 'src/main/category/category.module';
 import { CourcesModule } from 'src/main/cources/cources.module';
 import { ImageModule } from 'src/main/image/image.module';
+import { SectionsModule } from 'src/main/sections/sections.module';
 import { UsersModule } from 'src/main/users/users.module';
 
 @Module({
@@ -23,7 +24,8 @@ import { UsersModule } from 'src/main/users/users.module';
     AuthModule,
     ImageModule,
     CategoryModule,
-    CourcesModule
+    CourcesModule,
+    SectionsModule
   ],
   providers: [],
   controllers: []

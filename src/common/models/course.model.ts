@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 
 export const CourseSchema = new mongoose.Schema({
-  course_name: { type: String, required: true, unique:true },
+  course_name: { type: String, required: true},
   course_description: { type: String, required: true},
   course_category: { type: mongoose.Schema.Types.ObjectId, ref: 'Categories', required: true },
   course_people_count: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true }],

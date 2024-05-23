@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 import { CourcesService } from './cources.service';
 import { CreateCourseDto } from './dto/create-cource.dto';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AdminGuard } from 'src/common/guards/checkrole.guard';
+import { UpdateCourseDto } from './dto/update.category.dto';
 
 
 @ApiTags('cources')
@@ -19,23 +20,29 @@ export class CourcesController {
     return this.courcesService.create(body);
   }
 
-  @Get()
-  findAll() { 
+  @Get("all")
+  @ApiResponse({ status: 200, description: 'All cources' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  async findAll():Promise<Object> { 
     return this.courcesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.courcesService.findOne(+id);
-  }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourceDto: any) {
-    return this.courcesService.update(+id, updateCourceDto);
+  @ApiResponse({ status: 200, description: 'Find cource' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @Get(':id')
+  async findOne(@Param('id') id: string):Promise<Object> {
+    return this.courcesService.findOne(id);
+  }
+ 
+
+  @Put('update')
+  async update(@Body() updateCourceDto: UpdateCourseDto):Promise<Object> {    
+    return this.courcesService.update(updateCourceDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.courcesService.remove(+id);
+  async remove(@Param('id') id: string):Promise<Object> {
+    return this.courcesService.remove(id);
   }
 }
