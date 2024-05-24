@@ -15,11 +15,11 @@ export class CategoryService {
   constructor(
     @InjectModel('Categories') private readonly Categories: Model<Category>,
     private readonly imageService: ImageService,
-    private readonly utilsService: UtilsService, 
-  ) {}
+    private readonly utilsService: UtilsService,
+  ) { }
 
   async createCategory(req: any, body: CreateCategoryDto, file: UploadedFileInter,): Promise<object> {
-    const { category_name, category_description, category_isactive} = body
+    const { category_name, category_description, category_isactive } = body
 
     const categoryCheck = await this.Categories.findOne({
       category_name: category_name.trim(),
@@ -49,43 +49,44 @@ export class CategoryService {
     return { message: 'Success', statusCode: 200, data: category };
   }
 
- async findAllCategories():Promise<Object> {   
-     const viewForAdminCategories = await this.Categories.find({category_isactive:true}).exec()
-     return {message:"Success", statusCode:200, data:viewForAdminCategories}
+  async findAllCategories(): Promise<Object> {
+    const viewForAdminCategories = await this.Categories.find({ category_isactive: true }).exec()
+    return { message: "Success", statusCode: 200, data: viewForAdminCategories }
   }
 
-  async findOne(id: string):Promise<Object> {
-      const category = await this.utilsService.findCategory(id)    
-      return {message:"Success", statusCode:200, data:category}
+  async findOne(id: string): Promise<Object> {
+    const category = await this.utilsService.findCategory(id)
+    return { message: "Success", statusCode: 200, data: category }
   }
 
-  async update(body: UpdateCategoryDto, req:any, file:UploadedFileInter):Promise<Object> {
+  async update(body: UpdateCategoryDto, req: any, file: UploadedFileInter): Promise<Object> {
     const { category_name, category_isactive, category_id, category_description } = body
     await checkId(category_id)
     const findCategory = await this.Categories.findById(category_id);
     if (!findCategory) {
-        throw new NotFoundException("Category not found")
+      throw new NotFoundException("Category not found")
     }
     if (file && file.filename) {
-        const imageNameToDelete = findCategory.category_image;
-        const deleteImage = await this.imageService.deleteImage(imageNameToDelete)
-        findCategory.category_image = file.filename
-        await findCategory.save()
+      const imageNameToDelete = findCategory.category_image;
+      const deleteImage = await this.imageService.deleteImage(imageNameToDelete)
+      findCategory.category_image = file.filename
+      await findCategory.save()
     }
     const categoryTemplate = {
-        category_name: category_name ? category_name.trim(): category_name,
-        category_description: category_description ? category_description.trim(): category_description,
-        category_isactive: category_isactive,
+      category_name: category_name ? category_name : category_name,
+      category_description: category_description ? category_description : category_description,
+      category_isactive: category_isactive,
     }
-
-    const checkNameOfCategory = await this.Categories.findOne({
+    if (category_isactive) {
+      const checkNameOfCategory = await this.Categories.findOne({
         category_name: category_name.trim().toLowerCase()
-    })
+      })
 
-    if (checkNameOfCategory) {
+      if (checkNameOfCategory) {
         throw new BadRequestException(
-            'This Category name is already created, Please change name !',
+          'This Category name is already created, Please change name !',
         );
+      }
     }
 
     const updatedCategory = await this.Categories.findByIdAndUpdate(category_id, categoryTemplate)
@@ -99,10 +100,10 @@ export class CategoryService {
     const findCategoryImg = await this.Categories.findById(id)
 
     if (findCategoryImg && findCategoryImg.category_image) {
-        const deleteImage = await this.imageService.deleteImage(findCategoryImg.category_image)
-        const deleteCategory = await this.Categories.findByIdAndDelete(id);
-        return { message: "Success", statusCode: 200 };
+      const deleteImage = await this.imageService.deleteImage(findCategoryImg.category_image)
+      const deleteCategory = await this.Categories.findByIdAndDelete(id);
+      return { message: "Success", statusCode: 200 };
     }
     throw new NotFoundException("Category not found")
-}
+  }
 }
