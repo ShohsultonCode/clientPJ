@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { SectionsService } from './sections.service';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AdminGuard } from 'src/common/guards/checkrole.guard';
 
 
 
@@ -12,7 +13,10 @@ export class SectionsController {
   constructor(private readonly sectionsService: SectionsService) {}
 
   @Post("create")
-  create(@Body() createSectionDto: CreateSectionDto) {
+  @UseGuards(AdminGuard)
+  @ApiResponse({ status: 201, description: 'The course has been successfully created.' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  async create(@Body() createSectionDto: CreateSectionDto):Promise<Object> {
     return this.sectionsService.create(createSectionDto);
   }
 
