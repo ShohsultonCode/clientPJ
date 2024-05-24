@@ -27,6 +27,7 @@ export class SectionsService {
       cc_course_id: cc_course_id,
       cc_title: cc_title.trim(),
       cc_description: cc_description.trim(),
+      cc_video:cc_video.trim(),
       cc_date: cc_date
     })
     await createSectionOfCourse.save();
@@ -38,16 +39,9 @@ export class SectionsService {
 
   }
 
-  findAll() {
-    return `This action returns all sections`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} section`;
-  }
-
-  update(id: number, updateSectionDto: UpdateSectionDto) {
-    return `This action updates a #${id} section`;
+  update( updateSectionDto: UpdateSectionDto) {
+    
+    return `This action updates a #ection`;
   }
 
   remove(id: number) {
